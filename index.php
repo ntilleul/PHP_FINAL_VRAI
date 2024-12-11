@@ -94,7 +94,6 @@ switch ($route) {
         $id = $_GET['id'];
         $commentController->edited($pdo, $id);
         break;
->>>>>>> Stashed changes
     default:
         break; 
 }
