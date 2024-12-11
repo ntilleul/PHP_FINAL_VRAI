@@ -5,11 +5,14 @@ require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'
 require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'PostController.php');
 require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'ReactionController.php');
 require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'SearchController.php');
+require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'CommentController.php');
 
+$commentController = new CommentController();
 $userController = new UserController();
 $postController = new PostController();
 $reactionController  = new ReactionController();
 $searchController = new SearchController();
+
 
 $route = isset($_GET['c']) ? $_GET['c'] : 'home';
 
@@ -59,15 +62,15 @@ switch ($route) {
     case 'post':
         $postController->post($pdo);
         break;
-    case 'delete':
+    case 'Pdelete':
         $id = $_GET['id'];
         $postController->delete($pdo, $id);
         break;
-    case 'edit':
+    case 'Pedit':
         $id = $_GET['id'];
         $postController->edit($pdo, $id);
         break;
-    case 'edited':
+    case 'Pedited':
         $id = $_GET['id'];
         $postController->edited($pdo, $id);
         break;  
@@ -75,8 +78,24 @@ switch ($route) {
         $id = $_GET['id'];
         $postController->detail($pdo, $id);
         break;
-    
+    case 'create':
+        $commentController->comment();
+        break;
+    case 'comment':
+        $commentController->add($pdo);
+        break;
+    case 'Cdelete':
+        $id = $_GET['id'];
+        $commentController->delete($pdo, $id);
+        break;
+    case 'Cedit':
+        $id = $_GET['id'];
+        $commentController->edit($pdo, $id);
+        break;
+    case 'Cedited':
+        $id = $_GET['id'];
+        $commentController->edited($pdo, $id);
+        break;
     default:
-        $postController->index($pdo);
         break; 
 }
