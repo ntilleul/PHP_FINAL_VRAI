@@ -25,6 +25,15 @@ CREATE TABLE comments (
     post_id INT,
     date_commentaire TIMESTAMP
 )
+CREATE TABLE likes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    utilisateur_id INT,
+    post_id INT,
+    date_like TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (utilisateur_id) REFERENCES users(id),
+    FOREIGN KEY (post_id) REFERENCES posts(id)
+);
+
 
 SELECT * FROM users;
 SELECT * FROM posts;

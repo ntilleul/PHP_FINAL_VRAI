@@ -40,12 +40,20 @@ class PostController{
     }
 
     function index($pdo){
-        $requete = $pdo->prepare('SELECT posts.*, users.nom FROM posts JOIN users ON posts.utilisateur_id = users.id ORDER BY date_publication DESC');
+        $requete = $pdo->prepare('
+            SELECT posts.*, users.nom, COUNT(likes.id) AS like_count 
+            FROM posts 
+            JOIN users ON posts.utilisateur_id = users.id 
+            LEFT JOIN likes ON posts.id = likes.post_id 
+            GROUP BY posts.id
+            ORDER BY date_publication DESC
+        ');
         $requete->execute();
         $posts = $requete->fetchAll(PDO::FETCH_ASSOC);
         
-        require_once(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Views'.DIRECTORY_SEPARATOR.'post'.DIRECTORY_SEPARATOR.'index.php');
+        require_once(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'post'.DIRECTORY_SEPARATOR.'index.php');
     }
+    
 
     function delete($pdo, $id){
         if($this->verify($pdo, $id) == false){
@@ -99,4 +107,25 @@ class PostController{
             }
         }
     }
+    function detail($pdo, $id) {
+        $requete = $pdo->prepare('
+            SELECT posts.*, users.nom, COUNT(likes.id) AS like_count 
+            FROM posts 
+            JOIN users ON posts.utilisateur_id = users.id 
+            LEFT JOIN likes ON posts.id = likes.post_id 
+            WHERE posts.id = :id
+            GROUP BY posts.id
+        ');
+        $requete->bindParam(':id', $id);
+        $requete->execute();
+        $post = $requete->fetch(PDO::FETCH_ASSOC);
+    
+        if (!$post) {
+            echo "Ce post n'existe pas.";
+            return;
+        }
+    
+        require_once(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'post'.DIRECTORY_SEPARATOR.'detail.php');
+    }
+    
 }
