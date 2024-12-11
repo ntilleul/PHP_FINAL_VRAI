@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 # PHP_TP_FINAL
 ## Description du projet
 Ce projet est un mini réseau social d’entreprise. Il permet aux employés de s’inscrire, de se connecter, de poster des messages, d’ajouter des commentaires (non implémenté intégralement dans cette version), et de réagir aux publications avec diverses réactions (like, love, funny). Le site suit une architecture [MVC (Modèle-Vue-Contrôleur)](https://github.com/ntilleul/PHP_FINAL_VRAI/tree/main/app) et utilise une base de données MySQL. Les interactions principales, comme les réactions aux posts et la recherche en direct, sont gérées en AJAX, offrant une expérience utilisateur dynamique sans rechargement complet de la page.
@@ -123,4 +122,4 @@ Améliorer la gestion du profil utilisateur (mise à jour du nom, email, mot de 
 Ajouter d’autres types de réactions ou d’autres fonctionnalités sociales.
 Auteurs
 Ce projet a été réalisé dans le cadre d’un TP. Toutes les fonctionnalités de base demandées dans la consigne sont implémentées, avec quelques améliorations (détails de post, plusieurs types de réactions, etc.).
->>>>>>> Stashed changes
+
