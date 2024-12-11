@@ -40,14 +40,14 @@ class PostController{
     }
 
     function index($pdo){
-        $requete = $pdo->prepare('
-            SELECT posts.*, users.nom, COUNT(likes.id) AS like_count 
-            FROM posts 
-            JOIN users ON posts.utilisateur_id = users.id 
-            LEFT JOIN likes ON posts.id = likes.post_id 
-            GROUP BY posts.id
-            ORDER BY date_publication DESC
-        ');
+        $requete = $pdo->prepare("SELECT posts.id, posts.titre, posts.contenu, posts.utilisateur_id, posts.date_publication, users.nom,
+        (SELECT COUNT(*) FROM reactions WHERE post_id = posts.id AND reaction_type = 'like') as like_count,
+        (SELECT COUNT(*) FROM reactions WHERE post_id = posts.id AND reaction_type = 'love') as love_count,
+        (SELECT COUNT(*) FROM reactions WHERE post_id = posts.id AND reaction_type = 'funny') as funny_count
+        FROM posts
+        JOIN users ON posts.utilisateur_id = users.id
+        ORDER BY date_publication DESC
+        ");
         $requete->execute();
         $posts = $requete->fetchAll(PDO::FETCH_ASSOC);
         
@@ -109,16 +109,19 @@ class PostController{
     }
     function detail($pdo, $id) {
         $requete = $pdo->prepare('
-            SELECT posts.*, users.nom, COUNT(likes.id) AS like_count 
-            FROM posts 
-            JOIN users ON posts.utilisateur_id = users.id 
-            LEFT JOIN likes ON posts.id = likes.post_id 
+            SELECT posts.*, users.nom,
+                (SELECT COUNT(*) FROM reactions WHERE post_id = posts.id AND reaction_type="like") AS like_count,
+                (SELECT COUNT(*) FROM reactions WHERE post_id = posts.id AND reaction_type="love") AS love_count,
+                (SELECT COUNT(*) FROM reactions WHERE post_id = posts.id AND reaction_type="funny") AS funny_count
+            FROM posts
+            JOIN users ON posts.utilisateur_id = users.id
             WHERE posts.id = :id
             GROUP BY posts.id
         ');
         $requete->bindParam(':id', $id);
         $requete->execute();
         $post = $requete->fetch(PDO::FETCH_ASSOC);
+
     
         if (!$post) {
             echo "Ce post n'existe pas.";

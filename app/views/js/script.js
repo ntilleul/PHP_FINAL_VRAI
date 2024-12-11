@@ -1,14 +1,29 @@
 document.addEventListener('DOMContentLoaded',function(){
-    document.querySelectorAll('.like_btn').forEach(function(btn){
+    document.querySelectorAll('.reaction_btn').forEach(function(btn){
         btn.addEventListener('click',function(){
             let id = this.getAttribute('data-id')
-            fetch('?c=toggleLike&id='+id)
-            .then(response=>response.text())
+            let type = this.getAttribute('data-type')
+            fetch('?c=toggleReaction&id='+id+'&type='+type)
+            .then(response=>response.json())
             .then(data=>{
-                document.querySelector('.like_count[data-id="'+id+'"]').textContent=data
+                let container = document.querySelector('.reaction_count_container[data-id="'+id+'"]')
+                if(container){
+                    container.innerHTML = ''
+                    data.forEach(r=>{
+                        let span = document.createElement('span')
+                        span.classList.add('reaction_count')
+                        span.textContent = r.c+' '
+                        if(r.reaction_type=='like') span.textContent += '👍'
+                        else if(r.reaction_type=='love') span.textContent += '❤️'
+                        else if(r.reaction_type=='funny') span.textContent += '😂'
+                        container.appendChild(span)
+                        container.appendChild(document.createTextNode(' '))
+                    })
+                }
             })
         })
     })
+
 
     let search_input = document.getElementById('search_input')
     let search_results = document.getElementById('search_results')

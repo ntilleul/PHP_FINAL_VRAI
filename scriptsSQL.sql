@@ -33,8 +33,10 @@ CREATE TABLE likes (
     FOREIGN KEY (utilisateur_id) REFERENCES users(id),
     FOREIGN KEY (post_id) REFERENCES posts(id)
 );
+ALTER TABLE likes ADD COLUMN reaction_type VARCHAR(50) NOT NULL DEFAULT 'like';
+RENAME TABLE likes TO reactions;
 
-
+/*
 SELECT * FROM users;
 SELECT * FROM posts;
 SELECT * FROM comments;
@@ -47,3 +49,4 @@ DROP TABLE users;
 DROP TABLE posts;
 DROP TABLE comments;
 
+*/

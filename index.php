@@ -3,22 +3,24 @@ session_start();
 require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR.'connectDB.php');
 require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'UserController.php');
 require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'PostController.php');
-require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'LikeController.php');
+require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'ReactionController.php');
 require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'SearchController.php');
 
 $userController = new UserController();
 $postController = new PostController();
-$likeController = new LikeController();
+$reactionController  = new ReactionController();
 $searchController = new SearchController();
 
 $route = isset($_GET['c']) ? $_GET['c'] : 'home';
 
 switch ($route) {
-    case 'toggleLike':
+    case 'toggleReaction':
         $id = $_GET['id'];
-        $likeController->toggleLike($pdo, $id);
+        $reaction_type = isset($_GET['type']) ? $_GET['type'] : 'like';
+        $reactionController->toggleReaction($pdo, $id, $reaction_type);
         exit;
         break;
+    
     case 'search':
         $term = $_GET['term'];
         $searchController->search($pdo, $term);
