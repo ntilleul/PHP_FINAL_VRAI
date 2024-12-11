@@ -1,8 +1,4 @@
 <body>
-    <?php 
-    require_once(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'CommentController.php');
-    $commentController = new CommentController(); 
-    ?>
     <h1>Posts</h1>
     <div class="row">
         <?php foreach ($posts as $post) : ?> 
@@ -30,11 +26,7 @@
                                 </span>
                             </div>
 
-                            <?php endif; ?>
-                            <?php if (isset($_SESSION['id']) && $_SESSION['id'] == $post['utilisateur_id']) : ?>
-                                <a href="?c=edit&id=<?php echo $post['id'];?>" class="btn btn-primary ms-3">Modifier</a>
-                                <a href="?c=delete&id=<?php echo $post['id'];?>" class="btn btn-primary ms-3">Supprimer</a>
-                            <?php endif; ?>    
+                            <?php endif; ?>   
                         </div>
 
                         <a href="?c=detail&id=<?php echo $post['id']; ?>" class="btn btn-info">Détails</a>
@@ -43,8 +35,7 @@
                             <a href="?c=Pedit&id=<?php echo $post['id'];?>" class="btn btn-primary">Modifier</a>
                             <a href="?c=Pdelete&id=<?php echo $post['id'];?>" class="btn btn-primary">Supprimer</a>
                         <?php endif; ?>
-                        <a href="?c=create" class="btn btn-primary">Commenter</a>
-                        <?php $commentController->index($pdo, $post['id']);?>    
+                          
                     </div>    
                 </div> 
             </div>

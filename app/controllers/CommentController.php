@@ -5,7 +5,11 @@ class CommentController {
         require_once(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'comment'.DIRECTORY_SEPARATOR.'create.php');
     }
 
-    function edit(){
+    function edit($pdo, $id){
+        $requete = $pdo->prepare('SELECT * FROM comments WHERE id = :id');
+        $requete->bindParam(':id', $id);
+        $requete->execute();
+        $comment = $requete->fetch(PDO::FETCH_ASSOC);
         require_once(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'comment'.DIRECTORY_SEPARATOR.'edit.php');
     }
 
@@ -17,16 +21,18 @@ class CommentController {
             $requete->bindParam(':utilisateur_id', $_SESSION['id']);
             $requete->bindParam(':post_id', $_GET['id']);
             $requete->execute();
+            header('Location: index.php?c=home');
         }  
     }
 
     function edited($pdo, $id){
         if(isset($_SESSION['id'])) {
-            $requete = $pdo->prepare('SELECT * FROM comments WHERE id = :id');
+            $requete = $pdo->prepare('UPDATE comments SET contenu = :content WHERE id = :id');
             $requete->bindParam(':id', $id);
+            $requete->bindParam(':content', $_POST['content']);
             $requete->execute();
             $comment = $requete->fetch(PDO::FETCH_ASSOC);
-            require_once(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'comment'.DIRECTORY_SEPARATOR.'edit.php');
+            header('Location: index.php?c=home');
         }
     }
     
