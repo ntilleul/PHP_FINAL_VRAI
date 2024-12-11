@@ -1,5 +1,5 @@
 <body>
-    <h1>Modifier post</h1>
+    <h1>Modifier votre post</h1>
     <form action="?c=edited&id=<?php echo $post['id'];?>" method="post">
     <div class="mb-3">
         <label for="title" class="form-label">Titre du post</label>
@@ -11,6 +11,5 @@
     <div class="mb-3">
         <button type="submit" class="btn btn-primary" id="edit">Modifier</button>
     </div>
-</form>
+    </form>
 </body>
-</html>

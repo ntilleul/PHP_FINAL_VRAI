@@ -55,7 +55,7 @@ class UserController {
                 $_SESSION['id'] = $user['id'];
                 $_SESSION['nom'] = $user['nom'];
                 $_SESSION['email'] = $user['email'];
-                echo "<script>window.location.href = '/PHP_TP_FINAL/?c=home';</script>";
+                echo "<script>window.location.href = '/PHP_FINAL_VRAI/?c=home';</script>";
             } else {
                 echo 'Echec de la connexion.';    
             }
@@ -64,7 +64,7 @@ class UserController {
 
     function deconnection() {
         session_destroy();
-        echo "<script>window.location.href = '/PHP_TP_FINAL/?c=home';</script>";
+        echo "<script>window.location.href = '/PHP_FINAL_VRAI/?c=home';</script>";
     }
 
     function profil($pdo){
