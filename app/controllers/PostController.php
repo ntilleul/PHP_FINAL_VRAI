@@ -1,17 +1,5 @@
 <?php
 class PostController{
-    function verify($pdo, $id){
-        $requeteVerif = $pdo->prepare('SELECT utilisateur_id FROM posts WHERE id = :id');
-        $requeteVerif->bindParam(':id', $id);
-        $requeteVerif->execute();
-        $verif = $requeteVerif->fetch(PDO::FETCH_ASSOC);
-
-        if($verif['utilisateur_id'] != $_SESSION['id']){
-            return false;  
-        }else{
-            return true;
-        }
-    }
 
     function newPostForm(){
         require_once(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'post'.DIRECTORY_SEPARATOR.'create.php');
@@ -40,14 +28,7 @@ class PostController{
     }
 
     function index($pdo){
-        $requete = $pdo->prepare('
-            SELECT posts.*, users.nom, COUNT(likes.id) AS like_count 
-            FROM posts 
-            JOIN users ON posts.utilisateur_id = users.id 
-            LEFT JOIN likes ON posts.id = likes.post_id 
-            GROUP BY posts.id
-            ORDER BY date_publication DESC
-        ');
+        $requete = $pdo->prepare('SELECT posts.*, users.nom, COUNT(likes.id) AS like_count FROM posts JOIN users ON posts.utilisateur_id = users.id LEFT JOIN likes ON posts.id = likes.post_id GROUP BY posts.idORDER BY date_publication DESC');
         $requete->execute();
         $posts = $requete->fetchAll(PDO::FETCH_ASSOC);
         
@@ -56,12 +37,7 @@ class PostController{
     
 
     function delete($pdo, $id){
-        if($this->verify($pdo, $id) == false){
-            echo "L'opération a échoué";
-            echo "<script>window.location.href = '/PHP_FINAL_VRAI/?c=home';</script>";
-
-            
-        }else{
+        if(isset($_SESSION['id'])){
             $requete = $pdo->prepare('DELETE FROM posts WHERE id = :id');
             $requete->bindParam(':id', $id);
             $requete->execute();
@@ -84,9 +60,7 @@ class PostController{
     }
 
     function edited($pdo, $id){
-        if($this->verify($pdo, $id) == false){
-            echo "L'opération a échoué";
-        }else{  
+        if(isset($_SESSION['id'])){
             $title = $_POST['title'];
             $content = $_POST['content'];
 

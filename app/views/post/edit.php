@@ -1,6 +1,6 @@
 <body>
     <h1>Modifier votre post</h1>
-    <form action="?c=edited&id=<?php echo $post['id'];?>" method="post">
+    <form action="?c=Pedited&id=<?php echo $post['id'];?>" method="post">
     <div class="mb-3">
         <label for="title" class="form-label">Titre du post</label>
         <input type="text" class="form-control" name="title" id="title" value="<?php echo htmlspecialchars($post['titre']); ?>" required>
