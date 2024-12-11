@@ -3,21 +3,16 @@ session_start();
 require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'models'.DIRECTORY_SEPARATOR.'connectDB.php');
 require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'UserController.php');
 require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'PostController.php');
-<<<<<<< Updated upstream
 require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'LikeController.php');
 require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'SearchController.php');
+require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'CommentController.php');
 
+$commentController = new CommentController();
 $userController = new UserController();
 $postController = new PostController();
 $likeController = new LikeController();
 $searchController = new SearchController();
-=======
-require_once(__DIR__.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.'CommentController.php');
 
-$userController = new UserController();
-$postController = new PostController();
-$commentController = new CommentController();
->>>>>>> Stashed changes
 
 $route = isset($_GET['c']) ? $_GET['c'] : 'home';
 
