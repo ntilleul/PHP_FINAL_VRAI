@@ -5,6 +5,18 @@ class UserController {
     function register(){
         require_once(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'user'.DIRECTORY_SEPARATOR.'register.php');
     }
+    function profilView($pdo, $id){
+        $requete = $pdo->prepare('SELECT id, nom, email, date_inscription FROM users WHERE id = :id');
+        $requete->bindParam(':id', $id);
+        $requete->execute();
+        $user = $requete->fetch(PDO::FETCH_ASSOC);
+        if(!$user){
+            echo "Utilisateur introuvable.";
+            return;
+        }
+        require_once(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'user'.DIRECTORY_SEPARATOR.'profilView.php');
+    }
+    
 
     function enregistrer($pdo){
         $name = $_POST['name'];

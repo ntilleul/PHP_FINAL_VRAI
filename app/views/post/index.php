@@ -14,7 +14,7 @@
                                 <button class="btn btn-sm btn-primary reaction_btn" data-id="<?php echo $post['id'];?>" data-type="like">👍</button>
                                 <button class="btn btn-sm btn-primary reaction_btn ms-2" data-id="<?php echo $post['id'];?>" data-type="love">❤️</button>
                                 <button class="btn btn-sm btn-primary reaction_btn ms-2" data-id="<?php echo $post['id'];?>" data-type="funny">😂</button>
-                                <div class="reaction_count_container" data-id="<?php echo $post['id']; ?>">
+                                <div class="ms-3 reaction_count_container my-3" data-id="<?php echo $post['id']; ?>">
                                 <span class="reaction_count" data-type="like">
                                     <?php echo $post['like_count'] ?: 0; ?> 👍
                                 </span>

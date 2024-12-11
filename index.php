@@ -96,6 +96,11 @@ switch ($route) {
         $id = $_GET['id'];
         $commentController->edited($pdo, $id);
         break;
+    case 'profilView':
+        $uid = $_GET['id'];
+        $userController->profilView($pdo, $uid);
+        break;
+        
     default:
         break; 
 }

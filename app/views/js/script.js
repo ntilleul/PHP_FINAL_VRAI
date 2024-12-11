@@ -34,22 +34,35 @@ document.addEventListener('DOMContentLoaded',function(){
             .then(r=>r.json())
             .then(d=>{
                 search_results.innerHTML=''
+
                 d.users.forEach(u=>{
-                    let div=document.createElement('div')
-                    div.textContent='Utilisateur: '+u.nom
-                    search_results.appendChild(div)
+                    let a=document.createElement('a')
+                    a.href='?c=profilView&id='+u.id
+                    a.textContent='Utilisateur: '+u.nom+' ('+u.email+')'
+                    a.classList.add('d-block','p-2','text-decoration-none','text-dark')
+                    search_results.appendChild(a)
                 })
+
                 d.posts.forEach(p=>{
-                    let div=document.createElement('div')
-                    div.textContent='Post: '+p.titre
-                    search_results.appendChild(div)
+                    let a=document.createElement('a')
+                    a.href='?c=detail&id='+p.id
+                    a.textContent='Post: '+p.titre
+                    a.classList.add('d-block','p-2','text-decoration-none','text-dark')
+                    search_results.appendChild(a)
+                })
+
+                d.comments.forEach(c=>{
+                    let a=document.createElement('a')
+                    a.href='?c=detail&id='+c.post_id+'#comment_'+c.id
+                    a.textContent='Commentaire sur "'+c.post_titre+'" : '+c.contenu
+                    a.classList.add('d-block','p-2','text-decoration-none','text-dark')
+                    search_results.appendChild(a)
                 })
             })
         } else {
             search_results.innerHTML=''
         }
     })
-
     let toggle_mode = document.getElementById('toggle_mode')
     let body = document.getElementById('body')
     if(localStorage.getItem('mode')==='dark'){
