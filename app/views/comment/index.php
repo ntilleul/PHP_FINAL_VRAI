@@ -24,3 +24,4 @@
     </div>
     
 </body>
+<script src="app/views/js/script.js"></script>

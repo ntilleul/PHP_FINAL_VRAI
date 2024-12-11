@@ -10,9 +10,18 @@
         <button class="btn btn-sm btn-primary reaction_btn" data-id="<?php echo $post['id'];?>" data-type="like">👍</button>
         <button class="btn btn-sm btn-primary reaction_btn ms-2" data-id="<?php echo $post['id'];?>" data-type="love">❤️</button>
         <button class="btn btn-sm btn-primary reaction_btn ms-2" data-id="<?php echo $post['id'];?>" data-type="funny">😂</button>
-        <div class="ms-2 reaction_count_container" data-id="<?php echo $post['id'];?>">
-            <span class="reaction_count" data-type="like"><?php echo $post['like_count']; ?></span> 👍
+        <div class="reaction_count_container" data-id="<?php echo $post['id']; ?>">
+            <span class="reaction_count" data-type="like">
+                <?php echo $post['like_count'] ?: 0; ?> 👍
+            </span>
+            <span class="reaction_count" data-type="love">
+                <?php echo $post['love_count'] ?: 0; ?> ❤️
+            </span>
+            <span class="reaction_count" data-type="funny">
+                <?php echo $post['funny_count'] ?: 0; ?> 😂
+            </span>
         </div>
+
         <?php endif; ?>
         <?php if (isset($_SESSION['id']) && $_SESSION['id'] == $post['utilisateur_id']) : ?>
             <a href="?c=edit&id=<?php echo $post['id'];?>" class="btn btn-primary ms-3">Modifier</a>

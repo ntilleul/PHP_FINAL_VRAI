@@ -11,3 +11,4 @@
     <button id="bouton_modifier_profil" class="btn btn-primary d-none">Modifier le profil</button>
     <a href="?c=home" class="btn btn-primary">Retour à l'accueil</a>
 </div>
+<script src="app/views/js/script.js"></script>

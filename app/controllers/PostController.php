@@ -28,16 +28,19 @@ class PostController{
     }
 
     function index($pdo){
-        $requete = $pdo->prepare("SELECT posts.id, posts.titre, posts.contenu, posts.utilisateur_id, posts.date_publication, users.nom,
-        (SELECT COUNT(*) FROM reactions WHERE post_id = posts.id AND reaction_type = 'like') as like_count,
-        (SELECT COUNT(*) FROM reactions WHERE post_id = posts.id AND reaction_type = 'love') as love_count,
-        (SELECT COUNT(*) FROM reactions WHERE post_id = posts.id AND reaction_type = 'funny') as funny_count
-        FROM posts
-        JOIN users ON posts.utilisateur_id = users.id
-        ORDER BY date_publication DESC
-        ");
+        $requete = $pdo->prepare('
+            SELECT posts.*, users.nom,
+                (SELECT COUNT(*) FROM reactions WHERE post_id = posts.id AND reaction_type="like") AS like_count,
+                (SELECT COUNT(*) FROM reactions WHERE post_id = posts.id AND reaction_type="love") AS love_count,
+                (SELECT COUNT(*) FROM reactions WHERE post_id = posts.id AND reaction_type="funny") AS funny_count
+            FROM posts
+            JOIN users ON posts.utilisateur_id = users.id
+            GROUP BY posts.id
+            ORDER BY date_publication DESC
+        ');
         $requete->execute();
         $posts = $requete->fetchAll(PDO::FETCH_ASSOC);
+
         
         require_once(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'post'.DIRECTORY_SEPARATOR.'index.php');
     }

@@ -12,3 +12,4 @@
         <button type="submit" class="btn btn-primary" id="connexion">Se connecter</button>
     </div>
 </form>
+<script src="app/views/js/script.js"></script>

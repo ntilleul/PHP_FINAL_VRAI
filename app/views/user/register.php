@@ -16,3 +16,4 @@
         <button type="submit" class="btn btn-primary" id="enregistrer">Enregistrer</button>
     </div>
 </form>
+<script src="app/views/js/script.js"></script>

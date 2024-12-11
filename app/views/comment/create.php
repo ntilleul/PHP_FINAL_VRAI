@@ -8,3 +8,4 @@
         <button type="submit" class="btn btn-primary" id="poster">Commenter</button>
     </div>
 </form>
+<script src="app/views/js/script.js"></script>
