@@ -24,14 +24,13 @@ CREATE TABLE comments (
     utilisateur_id INT,
     post_id INT,
     date_commentaire TIMESTAMP
-)
+);
+
 CREATE TABLE likes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     utilisateur_id INT,
     post_id INT,
     date_like TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (utilisateur_id) REFERENCES users(id),
-    FOREIGN KEY (post_id) REFERENCES posts(id)
 );
 ALTER TABLE reactions ADD COLUMN reaction_type VARCHAR(50) NOT NULL DEFAULT 'like';
 RENAME TABLE likes TO reactions;
